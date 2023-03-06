@@ -7,4 +7,5 @@
 # -----
 *.log
 .terraform.lock.hcl
+ignore.tf
 terraform-test-results.xml

@@ -28,7 +28,7 @@ messages are **VERY** important in this repo.
    unmanageable if they pull in 10 or more which also pull in yet even more.
    When you add a dependency, check the number of lines it adds to the "go.mod"
    file or look at its graph by running `go mod graph` in a terminal. From there
-   judge if it is worth pulling in based on what you need from it. 
+   judge if it is worth pulling in based on what you need from it.
 2. Mind the licenses of the dependencies, for example MIT is O.K. What our for
    anything other than that.
 

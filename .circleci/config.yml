@@ -1,0 +1,67 @@
+version: 2.1
+
+orbs:
+  vro: kohirens/version-release@2.3.5
+
+parameters:
+  secrets:
+    default: kohirens-automation
+    description: Secrets context
+    type: string
+  secrets_iac_test:
+    default: kohirens-iac-test
+    description: Secrets context
+    type: string
+  ssh_finger:
+    description: SSH fingerprint.
+    type: string
+  triggered_by_bot:
+    default: false
+    description: Trigger publishing a release tag workflow.
+    type: boolean
+
+jobs:
+  run-test:
+    docker:
+      - image: hashicorp/terraform:1.3.6
+        auth:
+          username: ${DH_USER}
+          password: ${DH_PASS}
+    steps:
+      - checkout
+      - run:
+          command: terraform fmt -check -write=false -diff
+      - run:
+          command: terraform test -junit-xml="terraform-test-results.xml"
+      - store_artifacts:
+          path: terraform-test-results.xml
+      - store_test_results:
+          path: terraform-test-results.xml
+
+workflows:
+  quality_checks:
+    jobs:
+      - run-test:
+          context:
+            - << pipeline.parameters.secrets_docker >>
+            - << pipeline.parameters.secrets_iac_test >>
+          filters: { branches: { ignore: /main|auto-update-changelog/ } }
+
+  publish-changelog:
+    when:
+      and:
+        - equal: [main, << pipeline.git.branch >>]
+        - equal: [webhook, << pipeline.trigger_source >>]
+    jobs:
+      - vro/publish-changelog:
+          context: << pipeline.parameters.secrets >>
+          ssh_finger: << pipeline.parameters.ssh_finger >>
+
+  publish-release-tag:
+    when:
+      and:
+        - equal: [main, << pipeline.git.branch >>]
+        - << pipeline.parameters.triggered_by_bot >>
+    jobs:
+      - vro/tag-and-release:
+          context: << pipeline.parameters.secrets >>

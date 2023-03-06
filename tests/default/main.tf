@@ -15,12 +15,8 @@ terraform {
   }
 }
 
-variable "aws_account" {
-  description = "AWS account"
-}
-
 locals {
-  aws_region  = "us-west-1"
+  aws_region = "us-west-1"
 }
 
 provider "aws" {
@@ -29,7 +25,7 @@ provider "aws" {
 
 module "main" {
   source                 = "../.."
-  aws_account            = var.aws_account
+  aws_account            = local.aws_account
   aws_region             = local.aws_region
   iac_source             = "terratest.fakehub.com"
   name                   = "terraform-test"

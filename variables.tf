@@ -80,14 +80,14 @@ variable "url_alias" {
 }
 
 variable "url_allowed_headers" {
-  default     = ["GET", "HEAD", "POST"]
-  description = "HTTP verb headers allowed, like GET, POST, etc."
+  default     = ["date", "keep-alive"]
+  description = "HTTP headers allowed."
   type        = list(string)
 }
 
 variable "url_allowed_methods" {
   default     = ["GET"]
-  description = "List of HTTP methods allowed."
+  description = "List of HTTP verbs allowed."
   type        = list(string)
 }
 

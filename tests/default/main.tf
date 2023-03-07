@@ -31,6 +31,8 @@ module "main" {
   name                   = "terraform-test"
   runtime                = "go1.x"
   url_authorization_type = "NONE"
+  source_file            = "tests/default/hello"
+  handler                = "hello"
 }
 
 resource "test_assertions" "deploy_iam_policy_user_and_role" {

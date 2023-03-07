@@ -7,5 +7,6 @@
 # -----
 *.log
 .terraform.lock.hcl
-ignore.tf
-terraform-test-results.xml
+/tests/default/ignore.tf
+/lambda.zip
+/terraform-test-results.xml

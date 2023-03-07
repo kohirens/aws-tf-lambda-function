@@ -1,5 +1,6 @@
 locals {
-  module_name = "lambda-function"
+  module_name    = "lambda-function"
+  new_role_count = var.role_arn == null ? 1 : 0
 
   tags = {
     module-name = local.module_name
@@ -15,13 +16,13 @@ locals {
 }
 
 resource "aws_iam_policy" "main" {
-  count  = var.role_arn == null ? 1 : 0
+  count  = local.new_role_count
   name   = "lambda-${var.name}-policy"
   policy = local.policy_doc
 }
 
 resource "aws_iam_role" "main" {
-  count                 = var.role_arn == null ? 1 : 0
+  count                 = local.new_role_count
   description           = "lambda ${var.name} function role"
   force_detach_policies = true
   name                  = "lambda-${var.name}-role"
@@ -41,22 +42,38 @@ resource "aws_iam_role" "main" {
 }
 
 resource "aws_iam_role_policy_attachment" "main" {
+  count      = local.new_role_count
   policy_arn = aws_iam_policy.main[0].arn
   role       = aws_iam_role.main[0].name
 }
 
-#resource "aws_lambda_function" "main" {
-#  authorization_type = "NONE"
-#  architectures      = var.architecture
-#  function_name      = var.name
-#  role               = var.role_arn
-#  runtime            = var.runtime
-#
-#  depends_on = [
-#    aws_iam_role_policy_attachment.lambda_logs,
-#    aws_cloudwatch_log_group.example,
-#  ]
-#}
+resource "aws_cloudwatch_log_group" "main" {
+  name              = "lambda-${var.name}"
+  retention_in_days = var.log_retention_in_days
+  tags              = local.tags
+}
+
+data "archive_file" "lambda_zip" {
+  count       = var.source_zip == null ? 1 : 0
+  type        = "zip"
+  output_path = "${path.module}/lambda.zip"
+  source_file = var.source_file
+}
+
+resource "aws_lambda_function" "main" {
+  architectures = var.architecture
+  filename      = var.source_zip != null ? var.source_zip : data.archive_file.lambda_zip[0].output_path
+  function_name = var.name
+  handler       = var.handler
+  role          = var.role_arn != null ? var.role_arn : aws_iam_role.main[0].arn
+  runtime       = var.runtime
+
+
+  depends_on = [
+    aws_iam_role_policy_attachment.main[0],
+    aws_cloudwatch_log_group.main,
+  ]
+}
 #
 #resource "aws_lambda_function_url" "main" {
 #  function_name      = aws_lambda_function.main.function_name

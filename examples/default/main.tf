@@ -17,11 +17,12 @@ provider "aws" {
 }
 
 module "main" {
-  source                 = "../.."
+  source                 = "git@github.com:kohirens/aws-tf-lambda-function//.?ref=x.x.x"
   aws_account            = local.aws_account
   aws_region             = local.aws_region
-  iac_source             = "lambda.example.com"
+  iac_source             = "https://git.example.com/my-iac"
   name                   = "my-function"
   runtime                = "go1.x"
   url_authorization_type = "NONE"
+  source_file_name       = "hi"
 }

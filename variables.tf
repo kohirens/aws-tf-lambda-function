@@ -1,6 +1,7 @@
 variable "architecture" {
-  default     = "x86_64"
-  description = "Instruction set architecture for your Lambda function. Valid values are x86_64, arm64."
+  default     = ["x86_64"]
+  description = "Instruction set architecture for your Lambda function. Valid values are [\"x86_64\"], [\"arm64\"]. Mind the square brackets and quotes."
+  type        = list(string)
 }
 
 variable "aws_account" {
@@ -17,9 +18,20 @@ variable "description" {
   description = "Provide a description"
 }
 
+variable "handler" {
+  description = "Function entrypoint in your code (name of the executable for binaries."
+  type        = string
+}
+
 variable "iac_source" {
   description = "URL where the code lives."
   type        = string
+}
+
+variable "log_retention_in_days" {
+  default     = 14
+  description = "Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0. If you select 0 they never expire."
+  type        = number
 }
 
 variable "name" {
@@ -40,6 +52,18 @@ variable "role_arn" {
 
 variable "runtime" {
   description = "Identifier of the function's runtime. See https://docs.aws.amazon.com/lambda/latest/dg/API_CreateFunction.html#SSS-CreateFunction-request-Runtime"
+  type        = string
+}
+
+variable "source_file" {
+  default     = null
+  description = "a file to zip up for your Lambda. Works well apps that build to a single binary."
+  type        = string
+}
+
+variable "source_zip" {
+  default     = null
+  description = "Supply your own zip for he Lambda."
   type        = string
 }
 

@@ -92,3 +92,12 @@ resource "aws_lambda_function_url" "main" {
     max_age           = var.url_max_age
   }
 }
+
+resource "aws_route53_record" "main" {
+  count   = var.add_url && var.hosted_zone_id != null ? 1 : 0
+  zone_id = var.hosted_zone_id
+  name    = var.domain_name
+  type    = "CNAME"
+  ttl     = 300
+  record  = aws_lambda_function_url.main.function_url
+}

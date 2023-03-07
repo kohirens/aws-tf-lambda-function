@@ -24,8 +24,18 @@ variable "description" {
   description = "Provide a description"
 }
 
+variable "domain_name" {
+  default     = null
+  description = "domain to map to the  a description"
+}
+
 variable "handler" {
   description = "Function entrypoint in your code (name of the executable for binaries."
+  type        = string
+}
+
+variable "hosted_zone_id" {
+  description = "Hosted zone ID to add CNAME to for the function URL."
   type        = string
 }
 

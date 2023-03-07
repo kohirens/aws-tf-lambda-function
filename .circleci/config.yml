@@ -40,10 +40,9 @@ jobs:
           command: |
             chmod +x .circleci/generate-ignore.sh
             ./.circleci/generate-ignore.sh
+            ls -la tests/default
             terraform test -junit-xml="terraform-test-results.xml"
       - store_artifacts:
-          path: terraform-test-results.xml
-      - store_test_results:
           path: terraform-test-results.xml
 
 workflows:

@@ -38,6 +38,7 @@ jobs:
           command: terraform fmt -check -write=false -diff
       - run:
           command: |
+            chmod +x .circleci/generate-ignore.sh
             ./.circleci/generate-ignore.sh
             terraform test -junit-xml="terraform-test-results.xml"
       - store_artifacts:

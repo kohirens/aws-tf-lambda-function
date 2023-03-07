@@ -24,5 +24,6 @@ module "main" {
   name                   = "my-function"
   runtime                = "go1.x"
   url_authorization_type = "NONE"
-  source_file_name       = "hi"
+  source_file            = "files/hi"
+  handler                = "hi"
 }

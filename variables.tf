@@ -1,3 +1,9 @@
+variable "add_url" {
+  default     = false
+  description = "Allow invoking the Lambda function via HTTPS. See https://aws.amazon.com/blogs/aws/announcing-aws-lambda-function-urls-built-in-https-endpoints-for-single-function-microservices/"
+  type        = bool
+}
+
 variable "architecture" {
   default     = ["x86_64"]
   description = "Instruction set architecture for your Lambda function. Valid values are [\"x86_64\"], [\"arm64\"]. Mind the square brackets and quotes."
@@ -73,9 +79,21 @@ variable "url_alias" {
   type        = string
 }
 
+variable "url_allowed_headers" {
+  default     = ["GET", "HEAD", "POST"]
+  description = "HTTP verb headers allowed, like GET, POST, etc."
+  type        = list(string)
+}
+
 variable "url_allowed_methods" {
   default     = ["GET"]
   description = "List of HTTP methods allowed."
+  type        = list(string)
+}
+
+variable "url_headers_to_expost" {
+  default     = ["keep-alive", "date"]
+  description = "List of HTTP headers to expose in te response."
   type        = list(string)
 }
 

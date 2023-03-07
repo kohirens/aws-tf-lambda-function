@@ -74,18 +74,21 @@ resource "aws_lambda_function" "main" {
     aws_cloudwatch_log_group.main,
   ]
 }
-#
-#resource "aws_lambda_function_url" "main" {
-#  function_name      = aws_lambda_function.main.function_name
-#  qualifier          = var.url_alias
-#  authorization_type = var.url_authorization_type
-#
-#  cors {
-#    allow_credentials = true
-#    allow_origins     = ["*"]
-#    allow_methods     = var.url_allowed_methods
-##    allow_headers     = ["date", "keep-alive"]
-##    expose_headers    = ["keep-alive", "date"]
-#    max_age           = var.url_max_age
-#  }
-#}
+
+# see: https://aws.amazon.com/blogs/aws/announcing-aws-lambda-function-urls-built-in-https-endpoints-for-single-function-microservices/
+# also: https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuration-aliases-config
+resource "aws_lambda_function_url" "main" {
+  count              = var.add_url ? 1 : 0
+  function_name      = aws_lambda_function.main.function_name
+  qualifier          = var.url_alias
+  authorization_type = var.url_authorization_type
+
+  cors {
+    allow_credentials = true
+    allow_origins     = var.url_allowed_origins
+    allow_methods     = var.url_allowed_methods
+    allow_headers     = var.url_allowed_headers
+    expose_headers    = var.url_headers_to_expost
+    max_age           = var.url_max_age
+  }
+}

@@ -7,5 +7,7 @@
 ## Resources
 
 Deploys the following resources:
-
-* Lambda function
+* An IAM Managed policy
+* An IAM Role
+* A CloudWatch log group
+* A Lambda function (URL optional)

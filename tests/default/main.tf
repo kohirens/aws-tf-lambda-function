@@ -26,6 +26,7 @@ provider "aws" {
 
 module "main" {
   source                 = "../.."
+  add_url                = true
   aws_account            = local.aws_account
   aws_region             = local.aws_region
   iac_source             = "terratest.fakehub.com"
@@ -44,6 +45,10 @@ data "aws_lambda_function" "existing" {
 data "aws_cloudwatch_log_group" "existing" {
   depends_on = [module.main]
   name       = "lambda-${local.name}"
+}
+
+data "http" "test_function_url_response" {
+  url = module.main.function_url
 }
 
 resource "test_assertions" "deploy_iam_policy_user_and_role" {
@@ -71,5 +76,11 @@ resource "test_assertions" "deploy_iam_policy_user_and_role" {
     description = "lambda-${local.name} log group deploy"
     got         = data.aws_cloudwatch_log_group.existing.arn
     want        = "arn:aws:logs:us-west-1:755285156183:log-group:lambda-terraform-test"
+  }
+
+  equal "function_has_a_url" {
+    description = "lambda-${local.name} can be invoked via HTTPS"
+    got         = data.http.test_function_url_response.response_body
+    want        = "Hello from Lambda!"
   }
 }

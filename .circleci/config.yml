@@ -13,6 +13,7 @@ parameters:
     description: Secrets context
     type: string
   ssh_finger:
+    default: "fa:0c:95:f9:dc:a3:c8:22:95:84:96:07:d1:a0:30:a2"
     description: SSH fingerprint.
     type: string
   triggered_by_bot:

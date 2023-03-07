@@ -8,6 +8,10 @@ parameters:
     default: kohirens-automation
     description: Secrets context
     type: string
+  secrets_docker:
+    default: kohirens-docker-automation
+    description: Secrets context
+    type: string
   secrets_iac_test:
     default: kohirens-iac-test
     description: Secrets context

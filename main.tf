@@ -61,13 +61,13 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_lambda_function" "main" {
-  architectures = var.architecture
-  filename      = var.source_zip != null ? var.source_zip : data.archive_file.lambda_zip[0].output_path
-  function_name = var.name
-  handler       = var.handler
-  role          = var.role_arn != null ? var.role_arn : aws_iam_role.main[0].arn
-  runtime       = var.runtime
-
+  architectures                  = var.architecture
+  filename                       = var.source_zip != null ? var.source_zip : data.archive_file.lambda_zip[0].output_path
+  function_name                  = var.name
+  handler                        = var.handler
+  role                           = var.role_arn != null ? var.role_arn : aws_iam_role.main[0].arn
+  runtime                        = var.runtime
+  reserved_concurrent_executions = var.reserved_concurrent_executions
 
   depends_on = [
     aws_iam_role_policy_attachment.main[0],

@@ -12,6 +12,7 @@ variable "architecture" {
 
 variable "aws_account" {
   description = "AWS account id"
+  type        = number
 }
 
 variable "aws_region" {
@@ -22,6 +23,7 @@ variable "aws_region" {
 variable "description" {
   default     = null
   description = "Provide a description"
+  type        = string
 }
 
 variable "handler" {

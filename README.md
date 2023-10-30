@@ -11,3 +11,7 @@ Deploys the following resources:
 * An IAM Role
 * A CloudWatch log group
 * A Lambda function (URL optional)
+
+## Experimental Test
+
+This make use of the HashiCorp experimental feature `test`

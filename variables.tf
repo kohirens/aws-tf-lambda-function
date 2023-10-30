@@ -94,7 +94,7 @@ variable "url_allowed_headers" {
 }
 
 variable "url_allowed_methods" {
-  default     = ["GET"]
+  default     = ["GET", "HEAD"]
   description = "List of HTTP verbs allowed."
   type        = list(string)
 }

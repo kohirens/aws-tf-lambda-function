@@ -2,6 +2,9 @@
 ## [Unreleased]
 
 
+<a name="0.3.1"></a>
+## [0.3.1] - 0001-01-01
+
 <a name="0.3.0"></a>
 ## [0.3.0] - 2023-10-30
 ### Added
@@ -29,6 +32,7 @@
 - Test Using Variable
 
 
-[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.1...HEAD
+[0.3.1]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.1.0...0.2.0

@@ -98,7 +98,7 @@ resource "aws_lambda_function_url" "main" {
     allow_origins     = var.url_allowed_origins
     allow_methods     = var.url_allowed_methods
     allow_headers     = var.url_allowed_headers
-    expose_headers    = var.url_headers_to_expost
+    expose_headers    = var.url_headers_to_expose
     max_age           = var.url_max_age
   }
 }

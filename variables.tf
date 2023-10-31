@@ -26,6 +26,12 @@ variable "description" {
   type        = string
 }
 
+variable "environment_vars" {
+  default     = null
+  description = "Key value pairs to add to Lambda function environment."
+  type        = map(string)
+}
+
 variable "handler" {
   description = "Function entrypoint in your code (name of the executable for binaries."
   type        = string

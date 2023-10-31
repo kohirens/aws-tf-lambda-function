@@ -11,18 +11,18 @@ variable "architecture" {
 }
 
 variable "aws_account" {
-  description = "AWS account id"
+  description = "AWS account id."
   type        = number
 }
 
 variable "aws_region" {
-  description = "AWS region"
+  description = "AWS region to deploy the function."
   type        = string
 }
 
 variable "description" {
   default     = null
-  description = "Provide a description"
+  description = "Function description."
   type        = string
 }
 

@@ -13,6 +13,8 @@ locals {
     account_id       = var.aws_account
     lambda_func_name = var.name
   })
+
+  environment = [var.environment_vars]
 }
 
 resource "aws_iam_policy" "main" {
@@ -60,7 +62,13 @@ data "archive_file" "lambda_zip" {
   source_file = var.source_file
 }
 
+
 resource "aws_lambda_function" "main" {
+  depends_on = [
+    aws_iam_role_policy_attachment.main[0],
+    aws_cloudwatch_log_group.main,
+  ]
+
   architectures                  = var.architecture
   filename                       = var.source_zip != null ? var.source_zip : data.archive_file.lambda_zip[0].output_path
   function_name                  = var.name
@@ -69,10 +77,12 @@ resource "aws_lambda_function" "main" {
   runtime                        = var.runtime
   reserved_concurrent_executions = var.reserved_concurrent_executions
 
-  depends_on = [
-    aws_iam_role_policy_attachment.main[0],
-    aws_cloudwatch_log_group.main,
-  ]
+  dynamic "environment" {
+    for_each = local.environment
+    content {
+      variables = environment.value
+    }
+  }
 }
 
 # see: https://aws.amazon.com/blogs/aws/announcing-aws-lambda-function-urls-built-in-https-endpoints-for-single-function-microservices/

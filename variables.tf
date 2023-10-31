@@ -105,7 +105,7 @@ variable "url_allowed_methods" {
   type        = list(string)
 }
 
-variable "url_headers_to_expost" {
+variable "url_headers_to_expose" {
   default     = ["keep-alive", "date"]
   description = "List of HTTP headers to expose in te response."
   type        = list(string)

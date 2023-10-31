@@ -6,7 +6,7 @@ output "iam_role_arn" {
   value = length(aws_iam_role.main) > 0 ? aws_iam_role.main[0].arn : null
 }
 
-output "function" {
+output "function_arn" {
   value = aws_lambda_function.main.arn
 }
 

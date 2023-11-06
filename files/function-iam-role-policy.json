@@ -4,7 +4,7 @@
         {
             "Effect": "Allow",
             "Action": "logs:CreateLogGroup",
-            "Resource": "arn:aws:logs:${region}:${account_id}:*"
+            "Resource": "arn:aws:logs:${region}:${account_no}:*"
         },
         {
             "Effect": "Allow",
@@ -13,7 +13,7 @@
                 "logs:PutLogEvents"
             ],
             "Resource": [
-                "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${lambda_func_name}:*"
+                "arn:aws:logs:${region}:${account_no}:log-group:/aws/lambda/${lambda_func_name}:*"
             ]
         }
     ]

@@ -10,7 +10,7 @@ locals {
   policy_path = var.policy_path != null ? var.policy_path : "${path.module}/files/function-iam-role-policy.json"
   policy_doc = templatefile(local.policy_path, {
     region           = var.aws_region
-    account_id       = var.aws_account
+    account_no       = var.aws_account
     lambda_func_name = var.name
   })
 

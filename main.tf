@@ -69,7 +69,7 @@ resource "aws_lambda_function" "main" {
     aws_cloudwatch_log_group.main,
   ]
 
-  architectures                  = var.architecture
+  architectures                  = [var.architecture]
   filename                       = var.source_zip != null ? var.source_zip : data.archive_file.lambda_zip[0].output_path
   function_name                  = var.name
   handler                        = var.handler

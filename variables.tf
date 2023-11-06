@@ -5,9 +5,14 @@ variable "add_url" {
 }
 
 variable "architecture" {
-  default     = ["x86_64"]
-  description = "Instruction set architecture for your Lambda function. Valid values are [\"x86_64\"], [\"arm64\"]. Mind the square brackets and quotes."
-  type        = list(string)
+  default     = "x86_64"
+  description = "Instruction set architecture for your Lambda function. Valid values are x86_64 or arm64."
+  type        = string
+
+  validation {
+    condition     = var.architecture == "x86_64" || var.architecture == "arm64"
+    error_message = "value MUST be either \"x86_64\" or \"arm64\""
+  }
 }
 
 variable "aws_account" {

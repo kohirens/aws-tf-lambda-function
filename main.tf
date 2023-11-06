@@ -19,7 +19,7 @@ locals {
 
 resource "aws_iam_policy" "main" {
   count  = local.new_role_count
-  name   = "lambda-${var.name}-policy"
+  name   = "lambda-${var.name}"
   policy = local.policy_doc
 }
 
@@ -27,7 +27,7 @@ resource "aws_iam_role" "main" {
   count                 = local.new_role_count
   description           = "lambda ${var.name} function role"
   force_detach_policies = true
-  name                  = "lambda-${var.name}-role"
+  name                  = "lambda-${var.name}"
 
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",

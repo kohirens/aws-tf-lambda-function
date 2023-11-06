@@ -59,13 +59,13 @@ resource "test_assertions" "deploy_iam_policy_user_and_role" {
   equal "policy_deployed" {
     description = "iam policy deployed"
     got         = module.test_02.iam_policy_arn
-    want        = "arn:aws:iam::755285156183:policy/lambda-${local.name}-policy"
+    want        = "arn:aws:iam::755285156183:policy/lambda-${local.name}"
   }
 
   equal "role_deployed" {
     description = "iam role deploy"
     got         = module.test_02.iam_role_arn
-    want        = "arn:aws:iam::755285156183:role/lambda-${local.name}-role"
+    want        = "arn:aws:iam::755285156183:role/lambda-${local.name}"
   }
 
   equal "function_deployed" {

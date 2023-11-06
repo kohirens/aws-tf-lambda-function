@@ -7,6 +7,7 @@
 # -----
 *.log
 .terraform.lock.hcl
-/tests/default/ignore.tf
+/tests/*/ignore.tf
 /lambda.zip
 /terraform-test-results.xml
+/tests/testdata/bootstrap/bootstrap

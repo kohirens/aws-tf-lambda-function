@@ -22,8 +22,8 @@ module "main" {
   aws_region             = local.aws_region
   iac_source             = "https://git.example.com/my-iac"
   name                   = "my-function"
-  runtime                = "go1.x"
+  runtime                = "provided.al2"
   url_authorization_type = "NONE"
-  source_file            = "files/hi"
-  handler                = "hi"
+  source_file            = "files/bootstrap"
+  handler                = "bootstrap"
 }

@@ -38,7 +38,7 @@ variable "environment_vars" {
 }
 
 variable "handler" {
-  description = "Function entrypoint in your code (name of the executable for binaries."
+  description = "Name of the function that serves as the entrypoint in your code (or the name of the executable for binaries)."
   type        = string
 }
 

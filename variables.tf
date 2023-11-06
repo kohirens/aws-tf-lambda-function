@@ -33,7 +33,7 @@ variable "description" {
 
 variable "environment_vars" {
   default     = null
-  description = "Key value pairs to add to Lambda function environment."
+  description = "Key value pairs to add to Lambda function as environment variables."
   type        = map(string)
 }
 

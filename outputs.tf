@@ -14,10 +14,10 @@ output "function_memory_size" {
   value = aws_lambda_function.main.memory_size
 }
 
-output "log_group" {
-  value = aws_cloudwatch_log_group.main.arn
-}
-
 output "function_url" {
   value = length(aws_lambda_function_url.main) > 0 ? aws_lambda_function_url.main[0].function_url : null
+}
+
+output "log_group_arn" {
+  value = aws_cloudwatch_log_group.main.arn
 }

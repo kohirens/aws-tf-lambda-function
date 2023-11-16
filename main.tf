@@ -52,8 +52,13 @@ resource "aws_iam_role_policy_attachment" "main" {
   role       = aws_iam_role.main[0].name
 }
 
+# There is NO WAY to specify a different log group name, it must match this
+# pattern /aws/lambda/<function_name>. The function will only write to this
+# and must have permission to make it when it does not exists.
+# See: https://docs.aws.amazon.com/lambda/latest/dg/monitoring-cloudwatchlogs.html
+# Also: https://repost.aws/questions/QUF4zgK1TBQlqb6WvYF1DXaQ/group-lambda-logs
 resource "aws_cloudwatch_log_group" "main" {
-  name              = "lambda-${var.name}"
+  name              = "/aws/lambda/${var.name}"
   retention_in_days = var.log_retention_in_days
   tags              = local.tags
 }

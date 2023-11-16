@@ -35,7 +35,10 @@ resource "aws_iam_role" "main" {
       {
         "Effect" : "Allow",
         "Principal" : {
-          "Service" : "lambda.amazonaws.com"
+          "Service" : [
+            "edgelambda.amazonaws.com",
+            "lambda.amazonaws.com"
+          ]
         },
         "Action" : "sts:AssumeRole"
       }

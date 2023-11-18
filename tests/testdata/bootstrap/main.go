@@ -23,7 +23,7 @@ func Handler() (*Response, error) {
 		StatusCode: 200,
 		Status:     "OK!",
 		Headers: map[string]string{
-			"Content-Type": "text/html; charset=utf-8",
+			"Content-Type": "text/html;charset=utf-8",
 		},
 	}, nil
 }

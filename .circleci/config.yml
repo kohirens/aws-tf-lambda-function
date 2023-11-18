@@ -38,9 +38,8 @@ jobs:
           command: terraform fmt -check -write=false -diff
       - run:
           command: |
-            chmod +x .circleci/generate-ignore.sh
-            ./.circleci/generate-ignore.sh
-            terraform test -json
+            terraform init
+            terraform test
 
 workflows:
   quality_checks:

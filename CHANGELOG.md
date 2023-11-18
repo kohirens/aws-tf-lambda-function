@@ -3,7 +3,7 @@
 
 
 <a name="1.0.0"></a>
-## [1.0.0] - 2023-11-17
+## [1.0.0] - 2023-11-18
 ### Added
 - Ability To Make Lambda Edge Functions
   - IAM Role Name Output

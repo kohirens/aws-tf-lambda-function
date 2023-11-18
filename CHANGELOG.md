@@ -2,9 +2,19 @@
 ## [Unreleased]
 
 
-<a name="0.3.1"></a>
-## [0.3.1] - 2023-10-30
-
+<a name="1.0.0"></a>
+## [1.0.0] - 2023-11-17
+### Added
+- Ability To Make Lambda Edge Functions
+  - IAM Role Name Output
+  - Variable To Set Environment Variables
+  
+  ### Fixed
+- Test Fixture Generataion
+  - Lamdba CloudWatch Log Group
+  - Spelling In Variable Name
+  
+  
 <a name="0.3.0"></a>
 ## [0.3.0] - 2023-10-30
 ### Added
@@ -32,7 +42,7 @@
 - Test Using Variable
   
   
-[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.1...HEAD
-[0.3.1]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.0...0.3.1
+[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.0...1.0.0
 [0.3.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.1.0...0.2.0

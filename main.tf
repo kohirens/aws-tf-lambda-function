@@ -78,6 +78,7 @@ resource "aws_lambda_function" "main" {
   ]
 
   architectures                  = [var.architecture]
+  description                    = var.description
   filename                       = var.source_zip != null ? var.source_zip : data.archive_file.lambda_zip[0].output_path
   function_name                  = var.name
   handler                        = var.handler

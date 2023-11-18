@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="1.0.1"></a>
+## [1.0.1] - 2023-11-18
+### Fixed
+- Set Function Description
+  
+  
 <a name="1.0.0"></a>
 ## [1.0.0] - 2023-11-18
 ### Added
@@ -42,7 +48,8 @@
 - Test Using Variable
   
   
-[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.0.1...HEAD
+[1.0.1]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.0...1.0.0
 [0.3.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.1.0...0.2.0

@@ -85,6 +85,7 @@ resource "aws_lambda_function" "main" {
   role                           = var.role_arn != null ? var.role_arn : aws_iam_role.main[0].arn
   runtime                        = var.runtime
   reserved_concurrent_executions = var.reserved_concurrent_executions
+  source_code_hash               = var.source_zip != null ? filebase64sha256(var.source_zip) : filebase64sha256(data.archive_file.lambda_zip[0].output_path)
 
   dynamic "environment" {
     for_each = local.environment

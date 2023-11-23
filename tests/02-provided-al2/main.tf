@@ -13,5 +13,9 @@ variable "url" {
 
 data "http" "test_function_url_response" {
   url = var.url
+  retry {
+    attempts     = 2
+    min_delay_ms = 5000
+  }
 }
 

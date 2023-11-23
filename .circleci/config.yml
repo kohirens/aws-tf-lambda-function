@@ -39,6 +39,7 @@ jobs:
       - run:
           command: |
             terraform init
+            terraform validate
             terraform test
 
 workflows:

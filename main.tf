@@ -98,10 +98,12 @@ resource "aws_lambda_function" "main" {
 # see: https://aws.amazon.com/blogs/aws/announcing-aws-lambda-function-urls-built-in-https-endpoints-for-single-function-microservices/
 # also: https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuration-aliases-config
 resource "aws_lambda_function_url" "main" {
-  count              = var.add_url ? 1 : 0
+  count = var.add_url ? 1 : 0
+
+  authorization_type = var.url_authorization_type
+  invoke_mode        = var.invoke_mode
   function_name      = aws_lambda_function.main.function_name
   qualifier          = var.url_alias
-  authorization_type = var.url_authorization_type
 
   cors {
     allow_credentials = true

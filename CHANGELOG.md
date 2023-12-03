@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="1.2.0"></a>
+## [1.2.0] - 2023-12-03
+### Added
+- Variable To Set Invoke Mode
+  
+  
 <a name="1.1.0"></a>
 ## [1.1.0] - 2023-11-23
 ### Added
@@ -54,7 +60,8 @@
 - Test Using Variable
   
   
-[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/kohirens/aws-tf-lambda-function.git/compare/0.3.0...1.0.0

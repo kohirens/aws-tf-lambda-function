@@ -108,27 +108,27 @@ variable "url_alias" {
   type        = string
 }
 
-variable "url_allowed_headers" {
-  default     = ["date", "keep-alive"]
-  description = "HTTP headers allowed."
+variable "url_cors_allowed_headers" {
+  default     = ["accept", "content-type", "origin"]
+  description = "HTTP headers allowed for CORS request."
   type        = list(string)
 }
 
-variable "url_allowed_methods" {
-  default     = ["GET", "HEAD"]
-  description = "List of HTTP verbs allowed."
+variable "url_cors_allowed_methods" {
+  default     = ["GET", "HEAD", "POST"]
+  description = "List of HTTP methods allowed for CORS request."
   type        = list(string)
 }
 
-variable "url_headers_to_expose" {
-  default     = ["keep-alive", "date"]
-  description = "List of HTTP headers to expose in te response."
+variable "url_cors_headers_to_expose" {
+  default     = ["access-control-allow-origin", "content-type", "date", "keep-alive"]
+  description = "List of HTTP headers to expose in CORS response."
   type        = list(string)
 }
 
-variable "url_allowed_origins" {
+variable "url_cors_allowed_origins" {
   default     = ["*"]
-  description = "List of HTTP methods allowed."
+  description = "List of any CORS origins (domain, scheme, or port) other than its own from which a browser should permit loading resources"
   type        = list(string)
 }
 
@@ -138,7 +138,7 @@ variable "url_authorization_type" {
   type        = string
 }
 
-variable "url_max_age" {
+variable "url_cors_max_age" {
   default     = 0
   description = "The maximum amount of time, in seconds, that web browsers can cache results of a preflight request. The maximum value is 86400."
   type        = number

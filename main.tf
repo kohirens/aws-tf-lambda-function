@@ -107,10 +107,10 @@ resource "aws_lambda_function_url" "main" {
 
   cors {
     allow_credentials = true
-    allow_origins     = var.url_allowed_origins
-    allow_methods     = var.url_allowed_methods
-    allow_headers     = var.url_allowed_headers
-    expose_headers    = var.url_headers_to_expose
-    max_age           = var.url_max_age
+    allow_origins     = var.url_cors_allowed_origins
+    allow_methods     = var.url_cors_allowed_methods
+    allow_headers     = var.url_cors_allowed_headers
+    expose_headers    = var.url_cors_headers_to_expose
+    max_age           = var.url_cors_max_age
   }
 }

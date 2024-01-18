@@ -28,7 +28,7 @@ parameters:
 jobs:
   run-test:
     docker:
-      - image: hashicorp/terraform:1.6.3
+      - image: hashicorp/terraform:1.7.0
         auth:
           username: ${DH_USER}
           password: ${DH_PASS}

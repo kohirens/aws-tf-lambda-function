@@ -4,6 +4,28 @@ variable "add_url" {
   type        = bool
 }
 
+variable "additional_policies" {
+  default     = {}
+  description = <<-EOT
+  A map of policies, where the key is the name of the policy and the value is a
+  path to a JSON IAM policy file. This file will be parsed as a template and
+  deployed as a managed policy, then attached to the Lambda execution IAM role.
+  See additional_policies_template_vars for how to add your own variable to be
+  filled in during template processing.
+  EOT
+  type        = map(string)
+}
+
+variable "additional_policies_template_vars" {
+  default     = {}
+  description = <<-EOT
+  Template variables to use for additional manages policies files to attach to
+  the Lambda execution IAM role. These will be merged with variable that
+  contain the Lambda ARN.
+  EOT
+  type        = map(string)
+}
+
 variable "architecture" {
   default     = "x86_64"
   description = "Instruction set architecture for your Lambda function. Valid values are x86_64 or arm64."
@@ -70,7 +92,7 @@ variable "name" {
 
 variable "policy_path" {
   default     = null
-  description = "Path to a IAM policy."
+  description = "Path to a IAM policy. Careful, you may want to use additional_policies, as this will replace the policy you get for free that grants permission to create logs in CloudWatch. Should you replace this make sure your function still has permission to log to its CloudWatch log group."
   type        = string
 }
 variable "role_arn" {

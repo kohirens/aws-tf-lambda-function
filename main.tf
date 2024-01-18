@@ -15,6 +15,19 @@ locals {
   })
 
   environment = [var.environment_vars]
+
+  // template variable map
+  tmpl_vars = merge({
+    account_no       = var.aws_account
+    region           = var.aws_region
+    lambda_func_name = var.name
+    lambda_func_arn  = aws_lambda_function.main.arn
+  }, var.additional_policies_template_vars)
+
+  policy_docs = {
+    for k, policy in var.additional_policies :
+    k => templatefile("${path.module}/${policy}", local.tmpl_vars)
+  }
 }
 
 resource "aws_iam_policy" "main" {
@@ -113,4 +126,21 @@ resource "aws_lambda_function_url" "main" {
     expose_headers    = var.url_cors_headers_to_expose
     max_age           = var.url_cors_max_age
   }
+}
+
+resource "aws_iam_policy" "policy" {
+  for_each    = var.additional_policies
+  name        = each.key
+  path        = "/"
+  description = "Lambda function ${var.name} policy."
+
+  policy = local.policy_docs[each.key]
+}
+
+# Attach additional policies to the Lambda execution role when this module
+# deploys the role.
+resource "aws_iam_role_policy_attachment" "added_policies" {
+  for_each   = local.new_role_count > 0 ? aws_iam_policy.policy : {}
+  policy_arn = each.value.arn
+  role       = aws_iam_role.main[0].name
 }

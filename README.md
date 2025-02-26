@@ -12,7 +12,7 @@ Basic function usign Go runtime:
 ```terraform
 module "lambda_origin" {
   source = "git@github.com:kohirens/aws-tf-lambda-function//.?ref=x.x.x"
-  runtime     = "go1.x"
+  runtime     = "provided.al2023"
   source_file = "tests/testdata/hello"
   handler     = "hello"
 }
@@ -33,7 +33,7 @@ module "lambda_origin" {
   handler                = "bootstrap"
   invoke_mode            = var.lf_invoke_mode
   log_retention_in_days  = var.lf_log_retention_in_days
-  runtime                = "go1.x"
+  runtime                = "provided.al2023"
   source_zip             = "./bootstrap.zip"
   url_authorization_type = "AWS_IAM" // Must be set to AWS_IAM for CloudFront to authenticate properly.
 

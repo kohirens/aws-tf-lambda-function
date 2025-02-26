@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   vr: kohirens/version-release@4.4.4
+  aws: circleci/aws-cli@5.1.2
 
 parameters:
   secrets:
@@ -25,6 +26,39 @@ parameters:
     description: Workflow to be executed.
     type: string
 
+commands:
+  aws-oidc-setup:
+    description: Setup AWS auth using OIDC token
+    parameters:
+      role_env_var:
+        default: CIRCLECI_OIDC_ROLE_ARN
+        type: string
+      session_duration:
+        default: 900
+        type: integer
+    steps:
+      - run:
+          name: Get AWS credentials
+          command: |
+            set -- $(aws sts assume-role-with-web-identity --role-arn "${CIRCLECI_OIDC_ROLE_ARN}" --role-session-name "${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}" --web-identity-token "${CIRCLE_OIDC_TOKEN}" --duration-seconds << parameters.session_duration >> --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' --output text)
+            aws_key="${1}" && shift
+            aws_secret="${1}" && shift
+            aws_token="${1}" && shift
+            mkdir -p ~/.aws
+            echo '[default]' > ~/.aws/credentials
+            echo "aws_access_key_id=${aws_key}" >> ~/.aws/credentials
+            echo "aws_secret_access_key=${aws_secret}" >> ~/.aws/credentials
+            echo "aws_session_token=${aws_token}" >> ~/.aws/credentials
+            if [ -f ~/.aws/credentials ]; then
+                echo "credentials retrieved"
+                exit 0
+            fi
+            echo "could not retrieve credentials"
+            exit 1
+      - run:
+          name: Verify AWS credentials
+          command: |
+            aws sts get-caller-identity
 jobs:
   run-test:
     docker:
@@ -36,6 +70,8 @@ jobs:
       - checkout
       - run:
           command: terraform fmt -check -write=false -diff
+      - aws/install
+      - aws-oidc-setup
       - run:
           command: |
             terraform init

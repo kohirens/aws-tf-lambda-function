@@ -10,7 +10,7 @@ variables {
 
 run "verify_all_lambda_function_pieces_deployed_with_default_values" {
   variables {
-    runtime     = "go1.x"
+    runtime     = "provided.al2023"
     source_file = "tests/testdata/hello"
     handler     = "hello"
   }

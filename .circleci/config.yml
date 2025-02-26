@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  vr: kohirens/version-release@3.1.0
+  vr: kohirens/version-release@4.4.4
 
 parameters:
   secrets:
@@ -17,7 +17,7 @@ parameters:
     description: Secrets context
     type: string
   ssh_finger:
-    default: "fa:0c:95:f9:dc:a3:c8:22:95:84:96:07:d1:a0:30:a2"
+    default: "SHA256:yfSgz131DaRnkrMhsbLYExmhp2xIMr8UJH3daAC4dC8"
     description: SSH fingerprint.
     type: string
   triggered_flow:

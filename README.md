@@ -4,6 +4,49 @@
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/kohirens/aws-tf-lambda-function/tree/main.svg?style=svg&circle-token=ac24e63ddc40ab9086688c56e660e74fb70ad1ed)](https://dl.circleci.com/status-badge/redirect/gh/kohirens/aws-tf-lambda-function/tree/main)
 
+
+## Examples
+
+Basic function usign Go runtime:
+
+```terraform
+module "lambda_origin" {
+  source = "git@github.com:kohirens/aws-tf-lambda-function//.?ref=x.x.x"
+  runtime     = "go1.x"
+  source_file = "tests/testdata/hello"
+  handler     = "hello"
+}
+```
+
+Lambda Function URL as origin for a CloudFront Distribution:
+
+```terraform
+module "lambda_origin" {
+  source = "git@github.com:kohirens/aws-tf-lambda-function//.?ref=x.x.x"
+
+  add_url                = true
+  aws_account            = var.aws_account
+  aws_region             = "us-east-1"
+  name                   = "my-lambda-cf-origin"
+  description            = "CloutFront backend origin"
+  architecture           = "arm64"
+  handler                = "bootstrap"
+  invoke_mode            = var.lf_invoke_mode
+  log_retention_in_days  = var.lf_log_retention_in_days
+  runtime                = "go1.x"
+  source_zip             = "./bootstrap.zip"
+  url_authorization_type = "AWS_IAM" // Must be set to AWS_IAM for CloudFront to authenticate properly.
+
+  resource_policies = { // Ability to Attach Multiple Resource Policies
+    "AllowCloudFrontServicePrincipal" = {
+      action        = "lambda:InvokeFunctionUrl"
+      principal     = "cloudfront.amazonaws.com"
+      source_arn = "arn:aws:events:eu-west-1:111122223333:rule/RunDaily",
+    }
+  }
+}
+```
+
 ## Resources
 
 Deploys the following resources:

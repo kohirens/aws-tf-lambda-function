@@ -97,7 +97,7 @@ variable "policy_path" {
 }
 variable "role_arn" {
   default     = null
-  description = "ARN for the function to assume, this will be used instad of making a new role."
+  description = "ARN of the IAM Role for the function to assume, this will be used instead of making a new role."
   type        = string
 }
 
@@ -164,4 +164,14 @@ variable "url_cors_max_age" {
   default     = 0
   description = "The maximum amount of time, in seconds, that web browsers can cache results of a preflight request. The maximum value is 86400."
   type        = number
+}
+
+variable "resource_policies" {
+  default     = {}
+  description = "Additional resource policies to add to the Lambda function."
+  type = map(object({
+    action     = string # "lambda:InvokeFunctionUrl"
+    principal  = string
+    source_arn = string
+  }))
 }

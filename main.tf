@@ -144,3 +144,14 @@ resource "aws_iam_role_policy_attachment" "added_policies" {
   policy_arn = each.value.arn
   role       = aws_iam_role.main[0].name
 }
+
+# Add a resource policy to the Lambda function to allow an external source (like an EventBridge Rule, SNS, S3, or CloudFront).
+resource "aws_lambda_permission" "resource_policies" {
+  for_each      = var.resource_policies
+  depends_on    = [aws_lambda_function.main]
+  statement_id  = each.key
+  action        = each.value.action
+  principal     = each.value.principal
+  function_name = var.name
+  source_arn    = each.value.source_arn
+}

@@ -39,7 +39,7 @@ variable "architecture" {
 
 variable "aws_account" {
   description = "AWS account id."
-  type        = number
+  type        = string
 }
 
 variable "aws_region" {

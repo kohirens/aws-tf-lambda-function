@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  vr: kohirens/version-release@4.4.4
-  aws: circleci/aws-cli@5.1.2
+  vr: kohirens/version-release@5.1.10
+  aws: circleci/aws-cli@5.4.1
 
 parameters:
   secrets:
@@ -16,10 +16,6 @@ parameters:
   secrets_iac_test:
     default: kohirens-iac-test
     description: Secrets context
-    type: string
-  ssh_finger:
-    default: "SHA256:yfSgz131DaRnkrMhsbLYExmhp2xIMr8UJH3daAC4dC8"
-    description: SSH fingerprint.
     type: string
   triggered_flow:
     default: "workflow-selector"
@@ -95,7 +91,6 @@ workflows:
     jobs:
       - vr/workflow-selector:
           context: << pipeline.parameters.secrets >>
-          ssh_finger: << pipeline.parameters.ssh_finger >>
 
   publish-changelog:
     when:
@@ -104,7 +99,6 @@ workflows:
     jobs:
       - vr/publish-changelog:
           context: << pipeline.parameters.secrets >>
-          ssh_finger: << pipeline.parameters.ssh_finger >>
 
   publish-release-tag:
     when:
